@@ -103,3 +103,33 @@ jobs:
       - name: issue comment
         run: echo ${{ !github.event.issue.pull_request }}
 ```
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/8a772aef-ad19-4f36-8525-c60d66bcf68b)
+
+- if 문에 의해 skip
+
+## schedule
+
+특정 시간마다 github action workflow를 실행하는 이벤트
+
+```yaml
+name: schedule-workflow
+on:
+  schedule:
+    - cron: '15 * * * *'
+
+jobs:
+  schedule-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: schedule test
+        run: echo hello world
+```
+
+- default branch에 workflow가 존재해야지만 동작한다.
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/f7f6c25a-6794-458c-ba59-b7964a8552ad)
+
+- 위 문서에서 보다싶이 github action 사용에 대한 높은 부하가 존재하면 작업이 밀리거나 실행되지 않을 수 있다.
+- 따라서 반드시 실행되야하는 작업이라면 github action schedule 이벤트는 적합하지 못하다.
+
