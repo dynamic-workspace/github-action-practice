@@ -270,3 +270,10 @@ jobs:
 ```
 
 - checkout은 repository 코드를 github action job 에서 받아올 수 있는 action
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/7bbfcee7-b602-4581-bfac-b8834301b1b6)
+
+이 상황에서 readme 파일을 수정하고 종료된 workflow를 re-run 하더라도 변경전 결과를 출력한다. (커밋 기준으로 실행하기 때문)
+
+
+
