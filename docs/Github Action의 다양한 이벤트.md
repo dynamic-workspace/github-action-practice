@@ -199,4 +199,50 @@ on:
 # ...
 ```
 
+## needs
+
+하나의 워크플로우 안에서 여러 개의 잡을 사용하는 경우가 많은데 이러한 각 job들은 병렬로 실행된다.
+상황에 따라서 특정 job이 완료되고 특정 job이 실행되어야 하는 종속성이 필요한 경우 `needs`를 사용해볼 수 있다.
+
+- 여러 job의 실행 순서를 조절
+- 예를 들어 테스트 job이 실행되고, 그 job이 성공할 때 배포 job이 실행되도록 구성해볼 수 있다.
+
+```yaml
+name: needs
+on: push
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: echo "job1 done"
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: [ job1 ]
+    steps:
+      - name: echo
+        run: echo "job2 done"
+
+  job3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: |
+          echo "job3 failed"
+          exit 1
+
+  job4:
+    runs-on: ubuntu-latest
+    needs: [ job3 ]
+    steps:
+      - name: echo
+        run: echo "job4 done"
+```
+
+- job1, job3은 종속성이 걸려있지 않으므로 병렬로 실행
+- job1이 완료된 후 job2가 실행되며 job4는 job3의 실패로 실행되지 않는다.
+
+
 
