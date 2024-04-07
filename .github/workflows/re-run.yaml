@@ -1,0 +1,11 @@
+name: re-run
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: cat readme
+        run: cat README.md

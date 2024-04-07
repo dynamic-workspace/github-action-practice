@@ -241,8 +241,32 @@ jobs:
         run: echo "job4 done"
 ```
 
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/c7235b73-5b5a-40e0-a111-a552364e86f3)
+
 - job1, job3은 종속성이 걸려있지 않으므로 병렬로 실행
 - job1이 완료된 후 job2가 실행되며 job4는 job3의 실패로 실행되지 않는다.
 
+이렇게 실패한 job4를 실행시킬 수 있는 방법이 없을까?
+Github action에서는 이러한 상황을 위해서 종속성에 의해 실패한 job이 실행될 수 있는 방법을 제공한다. (if-condition)
 
+## re-run
 
+- 과거에 실행된 워크플로우를 재실행
+- 성공, 실패 여부와 상관없이 재실행이 가능하다.
+- 트리거된 그 시점을 다시 실행
+
+```yaml
+name: re-run
+on: push
+
+jobs: 
+  test:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: cat readme
+        run: cat README.md
+```
+
+- checkout은 repository 코드를 github action job 에서 받아올 수 있는 action
