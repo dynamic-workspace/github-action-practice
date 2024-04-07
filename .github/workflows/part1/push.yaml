@@ -1,4 +1,4 @@
-name: push-workflow # 액션 상 표시되는 이름
+name: push-workflow 1 # 액션 상 표시되는 이름
 on: push # 트리거 타입(푸시 이벤트)
 
 jobs: # job 집합
