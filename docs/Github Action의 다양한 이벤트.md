@@ -23,3 +23,34 @@ jobs: # job 집합
 
 ## pull request
 
+```yaml
+name: pull-request-workflow
+on: pull_request
+
+jobs:
+  pull-request-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: step1
+        run: echo hello world
+      - name: step2
+        run: |
+          echo hello world
+          echo github action
+```
+
+pull_request 이벤트는 PR이 생성될 때도 실행되고 이미 생성된 PR에 commit이 추가돠어도 실행된다.
+- 즉, PR이 open될 때 동기화될 때 모두 실행된다.
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/65172c5a-9c48-4316-bd5b-ee8e46b1e865)
+
+이러한 이유는 `on: pull_request` 로 트리거 이벤트를 설정하면 default Activity type이 적용되기 때문이다.
+- default Activity type: opened, synchronize, reopen
+- 만약 PR이 열릴때만 job을 실행하고 싶다면 명시적으로 지정해야 한다.
+
+```yaml
+name: pull-request-workflow
+on:
+  pull_request:
+    types: [ opened ]
+```
