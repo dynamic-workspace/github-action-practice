@@ -7,3 +7,7 @@ jobs: # job 집합
     steps: # step 집합, job이 실행시킬 작업
       - name: step1 # step의 이름
         run: echo hello world
+      - name: step2
+        run: | # | 키워드를 통해 멀티 라인 커맨드를 작성할 수 있다
+          echo hello world
+          echo github action
