@@ -183,3 +183,20 @@ jobs:
           echo "NAME: ${{ inputs.name }}"
           echo "ENVIRONMENT: ${{ inputs.environment }}"
 ```
+
+## 다양한 이벤트로 하나의 워크플로우 트리거하는 방법
+
+앞선 과정에서 on 키워드를 통해 이벤트를 지정했다.
+하나의 workflow를 트리거할 수 있는 여러 개의 이벤트가 필요할 수 있다. 
+
+```yaml
+on:
+  push: 
+  issue:
+    types: [ opened ]
+  workflow_dispatch:
+
+# ...
+```
+
+
