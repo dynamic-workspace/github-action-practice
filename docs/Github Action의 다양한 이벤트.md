@@ -133,3 +133,53 @@ jobs:
 - 위 문서에서 보다싶이 github action 사용에 대한 높은 부하가 존재하면 작업이 밀리거나 실행되지 않을 수 있다.
 - 따라서 반드시 실행되야하는 작업이라면 github action schedule 이벤트는 적합하지 못하다.
 
+## workflow dispatch
+
+- 수동으로 트리거 
+- default branch 에서만 동작
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/24723257-9b04-4398-bb36-c4f5740cb02b)
+
+- input 값을 넣을 수 있다.
+- input 값을 넣으면 해당 값을 github action job에서 활용할 수 있다.
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/48bb0133-2c57-4ea0-be34-93e5d45d35b3)
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/7e872596-01f4-4fbc-8e9e-0e948a7b6071)
+
+- 다양한 타입을 제공한다. string, number, boolean, choice(boolean)
+
+```yaml
+name: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'set name' # name input에 대한 설명
+        required: true # 해당 input이 필수값?
+        default: 'github-actions' # 해당 input 값의 기본값(prefill)
+        type: string # 타입
+      environment:
+        description: 'set env'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  workflow-dispatch-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: step1 echo hello world
+        run: echo Hello, world!
+      - name: step2 echo github action
+        run: |
+          echo Hello, world!
+          echo github action!
+      - name: echo inputs
+        run: |
+          echo "NAME: ${{ inputs.name }}"
+          echo "ENVIRONMENT: ${{ inputs.environment }}"
+```
