@@ -54,3 +54,12 @@ on:
   pull_request:
     types: [ opened ]
 ```
+
+## issue
+
+> issue: Github repository 에서 버그, 기능 요청, 질문, 논의 등을 추적 및 관리하는 도구이다. 프로젝트의 버그나 기능 개발 등의 진행 상황을 파악하는데 사용한다. 
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/e97ca338-a680-418b-b5bb-0e4cf2c97fa6)
+
+- issue 또한 PR처럼 activity type이 존재한다.
+- default가 모든 type을 대상으로 트리거가 된다.
