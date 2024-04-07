@@ -63,3 +63,43 @@ on:
 
 - issue 또한 PR처럼 activity type이 존재한다.
 - default가 모든 type을 대상으로 트리거가 된다.
+
+```yaml
+name: issue-workflow
+on:
+  issues:
+    types: [ opened ]
+
+# ...
+```
+
+- issue 이벤트는 push, pull_request 이벤트와 다르게 default branch 에서만 트리거된다.
+
+## issue comment
+
+issue에 comment를 달거나 pull request에 comment를 다는 행위가 issue comment 이벤트이다.
+- issue 이벤트처럼 default branch에서만 트리거된다.
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/04e083d3-a788-418d-991c-552696300efa)
+
+- 모든 Activity type이 default
+
+```yaml
+name: issue-comment-workflow
+on: issue_comment
+
+jobs:
+  pr-comment: # PR에 comment를 추가할 때 실행시킬 job
+    if: ${{ github.event.issue.pull_request }} # 조건을 추가할 수 있다
+    runs-on: ubuntu-latest
+    steps:
+      - name: pr comment
+        run: echo ${{ github.event.issue.pull_request }}
+  
+  issue-comment: # PR에 comment를 추가할 때 실행시킬 job
+    if: ${{ !github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: issue comment
+        run: echo ${{ !github.event.issue.pull_request }}
+```
