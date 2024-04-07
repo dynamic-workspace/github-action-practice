@@ -2,8 +2,6 @@
 
 ## push
 
-> git hub push 이벤트
-
 ```yaml
 name: push-workflow # 액션 상 표시되는 이름
 on: push # 트리거 타입(푸시 이벤트)
@@ -23,4 +21,5 @@ jobs: # job 집합
 `push-workflow` 라는 workflow는 push 이벤트가 발생할 때 트리거되고, `push-job` 이라는 이름의 job 1개가 실행이 되고,  
 해당 job의 첫번째 step인 `step1`은 hello world 를 출력하고 `step2`는 hello world, github action을 출력하고 종료된다.
 
+## pull request
 
