@@ -258,3 +258,20 @@ jobs:
         run: |
           echo ${{ needs.create-output.outputs.test }}
 ```
+
+## env variables
+
+- step이나 job에서 사용할 수 있는 환경 변수
+- key-value 형태로 데이터를 저장
+- output은 같은 job, 다른 job 간에 데이터 공유가 가능한 반면에 env는 동일한 job에서만 데이터 공유가 가능하다.
+- 구성 방법: env 사용, 미리 정의
+
+### env 사용
+
+- 워크플로우 내에서 정의하는 방법
+  - workflow level, job level, step level
+  - 하위 레벨에 동일한 key의 env가 존재한다면 해당 env를 사용한다. (step >> job >> workflow)
+- echo "{key}={value}" >> $GITHUB_ENV 도 사용가능
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/8df333ad-b548-4f05-8992-c3317fa19e0c)
+

@@ -5,7 +5,7 @@ jobs:
   create-output:
     runs-on: ubuntu-latest
     outputs: # job level output
-      test: ${{ steps.check-output.outputs.test }}
+      test: ${{ steps.check-output.outputs.test }} # key: test, value: step level output
     steps:
       - name: echo output
         id: check-output
@@ -19,5 +19,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get output
-        run: |
+        run: | # needs.{job name}.outputs.{job output key}
           echo ${{ needs.create-output.outputs.test }}
