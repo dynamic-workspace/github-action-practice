@@ -446,4 +446,21 @@ https://docs.github.com/en/actions/learn-github-actions/expressions#operators
 - ex. if: github.event_name == 'push'
 - job level, step level 에서 정의하여 job, step의 실행여부를 결정할 수 있다.
 
+**filter와 비교**
+
+- filter
+  - workflow 트리거를 더 세밀하게 제어
+  - branch filter: [ dev, main ]
+- if condition
+  - workflow가 트리거된 이후 job과 step을 세밀하게 제어
+  - ex. dev branch 일 때 첫 번째 job만 실행한다.
+
+### 특정 job과 step을 강제로 실행 
+
+- if: always()
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/146cc6d2-fd18-4401-851a-1d145452fdf8)
+
+- needs 에 의해 job2 는 실행되지 않는데, 여기서 `if: always()` 를 통해 Job2를 실행하도록 할 수 있다.
+- job level, step level 에서 모두 사용 가능하다.
 

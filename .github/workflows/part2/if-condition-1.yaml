@@ -1,4 +1,4 @@
-name: if-condition
+name: if-condition-1
 on:
   push:
   workflow_dispatch:
@@ -26,10 +26,6 @@ jobs:
       - name: get event name
         if: github.event_name == 'push'
         run: echo "PUSH"
-
-  job4:
-    runs-on: ubuntu-latest
-    steps:
       - name: get event name
         if: github.event_name != 'push'
         run: echo "WORKFLOW DISPATCH"
