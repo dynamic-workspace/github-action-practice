@@ -159,10 +159,10 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: 11
+          java-version: 17
           distribution: 'temurin'
       - name: Gradle Caching
         uses: actions/cache@v3
@@ -180,3 +180,48 @@ jobs:
         run: ./gradlew build
         shell: bash
 ```
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/2f1047f4-4b29-46ca-86d7-d3276efa3eee)
+
+- Action -> caches 탭에서 캐시를 확인할 수 있다.
+
+## artifact
+
+- 워크플로우 실행 중 생성된 파일 또는 파일 모음
+- 동일한 워크플로우 내에서 job 사이에 데이터 공유 
+- 워크플로우가 종료된 후에도, 데이터를 유지한다 (90일)
+- 필요하다면 다운로드도 가능하다.
+- 깃헙 마켓플레이스에 정의된 공식 액션
+  - upload-artifact
+  - download-artifact
+
+```yaml
+name: artifact
+on: push
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: echo hello-world > hello.txt
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifact-test
+          path: ./hello.txt
+  download-artifact:
+    runs-on: ubuntu-latest
+    needs: [upload-artifact]
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: artifact-test
+          path: ./ # 다운로드 위치
+      - name: check
+        run: cat hello.txt
+
+```
+
+
