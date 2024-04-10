@@ -62,3 +62,9 @@ jobs:
 
 ![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/d23a2c9a-1529-456d-a9c9-b27c5413ebca)
 
+## branch filter
+
+- 이벤트가 특정 조건에 부합할 때 실행
+  - 워크플로우 실행을 더 효과적으로 제어
+- filter: branch, path, tag
+  - 예를 들어 branch filter를 사용하면 dev, master branch 중에서 master branch 로 push 해야만 실행하도록 구성할 수 있다.
