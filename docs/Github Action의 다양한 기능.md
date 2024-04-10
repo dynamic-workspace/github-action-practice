@@ -464,3 +464,36 @@ https://docs.github.com/en/actions/learn-github-actions/expressions#operators
 - needs 에 의해 job2 는 실행되지 않는데, 여기서 `if: always()` 를 통해 Job2를 실행하도록 할 수 있다.
 - job level, step level 에서 모두 사용 가능하다.
 
+```yaml
+name: if-condition-2
+on:
+  push:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: exit 1
+        run: exit 1
+      - name: echo
+        if: always()
+        run: echo hello
+  job2:
+    needs: [ job1 ]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: echo
+        run: echo hello
+```
+
+## statsWith, endsWith, contains
+
+- 문자열에 대한 조건 검사 수행
+  - 잡 또는 스텝의 실행여부를 결정한다.
+- startsWith('github actions', 'git') -> return true
+- endsWith('github actions', 'ions') -> return true
+- contains('github actions', 'hub') -> return true
+- contains('github, actions', 'git') -> return true 
+  - contains는 배열도 가능
+
