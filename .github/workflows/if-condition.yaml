@@ -19,3 +19,17 @@ jobs:
       - name: get event name
         run: |
           echo ${{ github.event_name }}
+
+  job3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get event name
+        if: github.event_name == 'push'
+        run: echo "PUSH"
+
+  job4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get event name
+        if: github.event_name != 'push'
+        run: echo "WORKFLOW DISPATCH"
