@@ -8,6 +8,6 @@ class SystemController {
 
     @GetMapping("/health")
     fun health(): String {
-        return "ok"
+        return "ok!!"
     }
 }
