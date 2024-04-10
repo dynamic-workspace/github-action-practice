@@ -59,3 +59,6 @@ jobs:
       - name: github context
         run: echo '${{ toJson(github) }}'
 ```
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/d23a2c9a-1529-456d-a9c9-b27c5413ebca)
+
