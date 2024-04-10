@@ -396,3 +396,18 @@ Settings -> Environments -> New environment
 
 ![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/3314f69b-3a4e-4fb6-bedb-9d0a2e8a6e88)
 
+## matrix
+
+- 변수 기반으로 여러 job을 실행하는 기능
+- matrix를 사용해서 하나의 잡을 구성하면 여러 개의 잡을 실행하도록 할 수 있다.
+- 변수로 window, linux, macOS 설정
+  - 하나의 잡을 구성해서 러너가 다른 잡을 3개 실행 (window 러너, linux 러너, macOS 러너)
+- 변수로 python3.7 ~ python3.9
+  - 하나의 잡을 구성해서 같은 코드베이스에서 각 버전별로 테스트 구성
+- 만약 matrix 기능이 없다면 하나의 잡 구성이 아니라 여러 개의 잡을 구성해야할 수 있다.
+- job.strategy.matrix.<변수명>
+- matrix 값을 사용하려면 ${{ matrix.<변수명> }}
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/461473aa-2f11-4ea1-a973-cd6a187666ff)
+
+
