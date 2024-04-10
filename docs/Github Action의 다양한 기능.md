@@ -324,3 +324,15 @@ jobs:
 - Settings -> Secrets and variables -> Actions -> Variables -> New repository variables
 
 ![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/555e00db-cb99-49fe-9939-937d1525673a)
+
+```yaml
+name: env-var-2
+on: push
+
+jobs:
+  get-var:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get var
+        run: echo ${{ vars.LEVEL }}"
+```
