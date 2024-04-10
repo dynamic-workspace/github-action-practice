@@ -353,4 +353,22 @@ jobs:
 
 ![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/226b7fb0-50e3-4438-96a6-6077ea5eb847)
 
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/84e299c8-8e43-4efe-bf35-e5471dcf15f9)
+
+## environment
+
+- 특정 환경에서만 사용 가능한 환경변수와 시크릿 관리를 정의할 수 있는 기능
+- 레포지토리에서 정의할 수 있다.
+- 환경변수와 시크릿은 다양한 레벨에서 정의가 가능하다.
+  - organization level, repository level, environment level
+  - 하위 레벨에서 정의한 값을 우선으로 사용한다. (environment >> repo >> org)
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/ca64112e-2dd5-4a09-8912-da4448d8031a)
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/603625f4-ff84-4f5a-9557-8677bbbafc2d)
+
+```yaml
+
+```
+
 
