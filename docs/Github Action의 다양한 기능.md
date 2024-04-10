@@ -410,4 +410,40 @@ Settings -> Environments -> New environment
 
 ![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/461473aa-2f11-4ea1-a973-cd6a187666ff)
 
+```yaml
+name: matrix
+on: push
+
+jobs:
+  get-matrix:
+    strategy:
+      matrix:
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
+        version: [ 12, 14, 16 ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: echo matrix value
+        run: |
+          echo ${{ matrix.os }} 
+          echo ${{ matrix.version }} 
+```
+
+- 변수의 모든 가능한 조합에 대해 별도의 잡을 생성 -> 총 9개의 job이 실행된다.
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/0cf4c413-9a33-4c17-9baf-112a01cf2d20)
+
+## if condition
+
+- 특정 조건이 충족될 때 실행되도록 하는 데 사용 
+
+https://docs.github.com/en/actions/using-jobs/using-conditions-to-control-job-execution
+
+https://docs.github.com/en/actions/learn-github-actions/expressions#operators
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/661f4380-6888-440d-90d1-4456baf98c10)
+
+- operator를 통해 적절한 조건을 구성하면 된다.
+- ex. if: github.event_name == 'push'
+- job level, step level 에서 정의하여 job, step의 실행여부를 결정할 수 있다.
+
 
