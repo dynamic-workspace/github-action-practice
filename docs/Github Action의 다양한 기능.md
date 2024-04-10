@@ -110,7 +110,7 @@ jobs:
 v1.0.0 으로 태깅해야지만 실행하도록 구성할 수 있다.
 
 - tag filter는 push event에서만 사용할 수 있다.
-- git tag <tag-name>
+- 태그 구성하는 방법: git tag <tag-name>
 
 ```yaml
 name: branch-filter
@@ -126,3 +126,16 @@ jobs:
       - name: echo
         run: echo hello
 ```
+
+## timeout
+
+- 특정 시간이상 실행되면 자동으로 중단되도록 설정
+- 특정 job or 특정 step 무한 루프를 방지함으로써 불필요한 자원 소모를 방지한다.
+  - default: 360분
+- job-level, step-level 에서 timeout-minutes 를 이용하여 사용할 수 있다.
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/ad5741b8-a61a-4602-8caf-3bb32df4e07e)
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/51e12713-9fc7-4e94-b7d4-a78ff0e8720e)
+
+
