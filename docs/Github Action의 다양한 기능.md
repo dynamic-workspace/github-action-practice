@@ -268,10 +268,59 @@ jobs:
 
 ### env 사용
 
-- 워크플로우 내에서 정의하는 방법
-  - workflow level, job level, step level
-  - 하위 레벨에 동일한 key의 env가 존재한다면 해당 env를 사용한다. (step >> job >> workflow)
+### 워크플로우 내에서 정의하는 방법
+
+- workflow level, job level, step level
+- 하위 레벨에 동일한 key의 env가 존재한다면 해당 env를 사용한다. (step >> job >> workflow)
 - echo "{key}={value}" >> $GITHUB_ENV 도 사용가능
 
 ![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/8df333ad-b548-4f05-8992-c3317fa19e0c)
 
+```yaml
+name: env-var-1
+on: push
+
+env:
+  level: workflow
+
+jobs:
+  get-env-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check env
+        run: echo "LEVEL ${{ env.level }}"
+
+  get-env-2:
+    runs-on: ubuntu-latest
+    env:
+      level: job
+    steps:
+      - name: check env
+        run: echo "LEVEL ${{ env.level }}"
+
+  get-env-3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check env
+        env:
+          level: step
+        run: echo "LEVEL ${{ env.level }}"
+
+  get-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create env
+        run: echo "level=job" >> $GITHUB_ENV
+      - name: check env
+        run: echo "LEVEL ${{ env.level }}"
+```
+
+### 워크플로우 밖에서 미리 정의하는 방법
+
+- 미리 환경변수를 정의한 후에
+  - ${{ vars.<environment-variables> }}
+  - ex. ${{ vars.LEVEL }}
+- 정의된 환경변수를 바꾸면 워크플로우 결과가 달라질 수 있다.
+- Settings -> Secrets and variables -> Actions -> Variables -> New repository variables
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/555e00db-cb99-49fe-9939-937d1525673a)
