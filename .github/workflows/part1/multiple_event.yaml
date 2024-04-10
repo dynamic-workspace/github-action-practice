@@ -1,10 +1,12 @@
-name: issue-workflow 1
+name: multiple-event-workflow
 on:
+  push:
   issues:
     types: [ opened ]
+  workflow_dispatch:
 
 jobs:
-  issue-job:
+  multiple-event-job:
     runs-on: ubuntu-latest
     steps:
       - name: step1

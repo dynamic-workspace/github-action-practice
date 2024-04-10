@@ -103,3 +103,177 @@ jobs:
       - name: issue comment
         run: echo ${{ !github.event.issue.pull_request }}
 ```
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/8a772aef-ad19-4f36-8525-c60d66bcf68b)
+
+- if 문에 의해 skip
+
+## schedule
+
+특정 시간마다 github action workflow를 실행하는 이벤트
+
+```yaml
+name: schedule-workflow
+on:
+  schedule:
+    - cron: '15 * * * *'
+
+jobs:
+  schedule-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: schedule test
+        run: echo hello world
+```
+
+- default branch에 workflow가 존재해야지만 동작한다.
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/f7f6c25a-6794-458c-ba59-b7964a8552ad)
+
+- 위 문서에서 보다싶이 github action 사용에 대한 높은 부하가 존재하면 작업이 밀리거나 실행되지 않을 수 있다.
+- 따라서 반드시 실행되야하는 작업이라면 github action schedule 이벤트는 적합하지 못하다.
+
+## workflow dispatch
+
+- 수동으로 트리거 
+- default branch 에서만 동작
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/24723257-9b04-4398-bb36-c4f5740cb02b)
+
+- input 값을 넣을 수 있다.
+- input 값을 넣으면 해당 값을 github action job에서 활용할 수 있다.
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/48bb0133-2c57-4ea0-be34-93e5d45d35b3)
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/7e872596-01f4-4fbc-8e9e-0e948a7b6071)
+
+- 다양한 타입을 제공한다. string, number, boolean, choice(boolean)
+
+```yaml
+name: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'set name' # name input에 대한 설명
+        required: true # 해당 input이 필수값?
+        default: 'github-actions' # 해당 input 값의 기본값(prefill)
+        type: string # 타입
+      environment:
+        description: 'set env'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  workflow-dispatch-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: step1 echo hello world
+        run: echo Hello, world!
+      - name: step2 echo github action
+        run: |
+          echo Hello, world!
+          echo github action!
+      - name: echo inputs
+        run: |
+          echo "NAME: ${{ inputs.name }}"
+          echo "ENVIRONMENT: ${{ inputs.environment }}"
+```
+
+## 다양한 이벤트로 하나의 워크플로우 트리거하는 방법
+
+앞선 과정에서 on 키워드를 통해 이벤트를 지정했다.
+하나의 workflow를 트리거할 수 있는 여러 개의 이벤트가 필요할 수 있다. 
+
+```yaml
+on:
+  push: 
+  issue:
+    types: [ opened ]
+  workflow_dispatch:
+
+# ...
+```
+
+## needs
+
+하나의 워크플로우 안에서 여러 개의 잡을 사용하는 경우가 많은데 이러한 각 job들은 병렬로 실행된다.
+상황에 따라서 특정 job이 완료되고 특정 job이 실행되어야 하는 종속성이 필요한 경우 `needs`를 사용해볼 수 있다.
+
+- 여러 job의 실행 순서를 조절
+- 예를 들어 테스트 job이 실행되고, 그 job이 성공할 때 배포 job이 실행되도록 구성해볼 수 있다.
+
+```yaml
+name: needs
+on: push
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: echo "job1 done"
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: [ job1 ]
+    steps:
+      - name: echo
+        run: echo "job2 done"
+
+  job3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: |
+          echo "job3 failed"
+          exit 1
+
+  job4:
+    runs-on: ubuntu-latest
+    needs: [ job3 ]
+    steps:
+      - name: echo
+        run: echo "job4 done"
+```
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/c7235b73-5b5a-40e0-a111-a552364e86f3)
+
+- job1, job3은 종속성이 걸려있지 않으므로 병렬로 실행
+- job1이 완료된 후 job2가 실행되며 job4는 job3의 실패로 실행되지 않는다.
+
+이렇게 실패한 job4를 실행시킬 수 있는 방법이 없을까?
+Github action에서는 이러한 상황을 위해서 종속성에 의해 실패한 job이 실행될 수 있는 방법을 제공한다. (if-condition)
+
+## re-run
+
+- 과거에 실행된 워크플로우를 재실행
+- 성공, 실패 여부와 상관없이 재실행이 가능하다.
+- 트리거된 그 시점을 다시 실행
+
+```yaml
+name: re-run
+on: push
+
+jobs: 
+  test:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: cat readme
+        run: cat README.md
+```
+
+- checkout은 repository 코드를 github action job 에서 받아올 수 있는 action
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/7bbfcee7-b602-4581-bfac-b8834301b1b6)
+
+이 상황에서 readme 파일을 수정하고 종료된 workflow를 re-run 하더라도 변경전 결과를 출력한다. (커밋 기준으로 실행하기 때문)
+
+
+
