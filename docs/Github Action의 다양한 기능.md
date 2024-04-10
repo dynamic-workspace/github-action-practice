@@ -69,6 +69,8 @@ jobs:
 - filter: branch, path, tag
   - 예를 들어 branch filter를 사용하면 dev, master branch 중에서 master branch 로 push 해야만 실행하도록 구성할 수 있다.
 
+### branch filter
+
 ```yaml
 name: branch-filter
 on:
@@ -77,6 +79,25 @@ on:
 
 jobs:
   branch-filter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: echo hello
+```
+
+### path filter
+
+특정 경로 내에 파일이 업데이트될 때만 실행하도록 구성할 수 있다.
+
+```yaml
+name: branch-filter
+on:
+  push:
+    paths:
+      - '.github/workflows/part1/*'
+
+jobs:
+  path-filter:
     runs-on: ubuntu-latest
     steps:
       - name: echo

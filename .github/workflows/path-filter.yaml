@@ -1,10 +1,11 @@
 name: branch-filter
 on:
   push:
-    branches: ["dev-test"]
+    paths:
+      - '.github/workflows/part1/*'
 
 jobs:
-  branch-filter:
+  path-filter:
     runs-on: ubuntu-latest
     steps:
       - name: echo
