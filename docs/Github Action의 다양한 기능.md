@@ -221,7 +221,40 @@ jobs:
           path: ./ # 다운로드 위치
       - name: check
         run: cat hello.txt
-
 ```
 
+## output
 
+- 한 job에서 생성된 데이터
+  - 동일한 job의 step 또는 다른 job 들과 데이터를 공유할 수 있다.
+  - 다른 job 에서 output을 사용하려면 needs, job level output 설정이 필요하다.
+- 여러 step과 job 간에 데이터를 손쉽게 전달 가능
+- artifact 는 파일 또는 파일 모음으로 데이터를 공유하는 반면에 output은 단순한 값을 전달할 때 사용한다. (key-value 형태로 데이터를 저장)
+- echo "{key}={value}" >> $GITHUB_OUTPUT
+- output 을 사용하려면 아웃풋이 정의된 스텝의 고유 id를 사용해야 한다.
+
+```yaml
+name: output
+on: push
+
+jobs:
+  create_output:
+    runs-on: ubuntu-latest
+    outputs: # job level output
+      test: ${{ steps.check-output.outputs test }}
+    steps:
+      - name: echo output
+        id: check-output
+        run: echo "test=hello" >> "$GITHUB_OUTPUT" # step level output
+      - name: check output
+        run: |
+          echo ${{ steps.check-output.outputs.test }}
+          
+  get-output:
+    needs: [ create-output ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: get output
+        run: |
+          echo ${{ needs.create-output.outputs.test }}
+```
