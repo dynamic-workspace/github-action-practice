@@ -95,9 +95,32 @@ on:
   push:
     paths:
       - '.github/workflows/part1/*'
+      - '!.github/workflows/part1/push.yaml' # 무시하도록 구성할 수도 있음
 
 jobs:
   path-filter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: echo hello
+```
+
+### tag filter
+
+v1.0.0 으로 태깅해야지만 실행하도록 구성할 수 있다.
+
+- tag filter는 push event에서만 사용할 수 있다.
+- git tag <tag-name>
+
+```yaml
+name: branch-filter
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+' # v1.0.0 or v2.2.2 , ... 트리거
+
+jobs:
+  tag-filter:
     runs-on: ubuntu-latest
     steps:
       - name: echo
