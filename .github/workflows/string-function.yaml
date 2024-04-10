@@ -22,6 +22,6 @@ jobs:
       - name: contains
         if: contains('github actions', 'act')
         run: echo "contains act"
-      - name: startWith
+      - name: contains
         if: contains('github, actions', 'git')
         run: echo "contains git"

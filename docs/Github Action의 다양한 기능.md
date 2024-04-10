@@ -497,3 +497,32 @@ jobs:
 - contains('github, actions', 'git') -> return true 
   - contains는 배열도 가능
 
+```yaml
+name: string-function
+on: push
+
+jobs:
+  string-funtion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: startWith
+        if: startsWith('github actions', 'git')
+        run: echo "git"
+      - name: startWith
+        if: startsWith('github actions', 'test')
+        run: echo "test"
+
+      - name: endsWith
+        if: endsWith('github actions', 'ions')
+        run: echo "ions"
+      - name: endsWith
+        if: endsWith('github actions', 'test')
+        run: echo "test"
+
+      - name: contains
+        if: contains('github actions', 'act')
+        run: echo "contains act"
+      - name: contains
+        if: contains('github, actions', 'git')
+        run: echo "contains git"
+```
