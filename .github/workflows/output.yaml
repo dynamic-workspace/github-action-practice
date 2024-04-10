@@ -2,7 +2,7 @@ name: output
 on: push
 
 jobs:
-  create_output:
+  create-output:
     runs-on: ubuntu-latest
     outputs: # job level output
       test: ${{ steps.check-output.outputs.test }}
