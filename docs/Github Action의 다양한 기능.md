@@ -336,3 +336,21 @@ jobs:
       - name: get var
         run: echo ${{ vars.LEVEL }}"
 ```
+
+> 외부 환경변수를 주입받기 때문에 re-run을 하면 결과가 달라진다.
+
+## secret
+
+- 민감한 데이터를 안전하게 저장해서 워크플로우에서 사용
+- 민감 정보를 코드와 분리하여, 노출되는 것을 방지할 수 있다.
+  - ex. API Key, 암호, 인증 토큰
+- 깃헙을 통한 안전한 저장
+- 로깅 방지 (출력 시 마스킹)
+- 워크플로우 실행중에만 접근이 가능하다. (접근 제한)
+- secret도 미리정의한 env와 마찬가지로 정의된 시크릿을 바꾸면 워크플로우 결과가 달라질 수 있다.
+- ${{ secrets.<secret-name> }}
+- Settings -> Secrets and variables -> Actions -> Secrets -> New repository secrets
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/226b7fb0-50e3-4438-96a6-6077ea5eb847)
+
+
