@@ -68,3 +68,17 @@ jobs:
   - 워크플로우 실행을 더 효과적으로 제어
 - filter: branch, path, tag
   - 예를 들어 branch filter를 사용하면 dev, master branch 중에서 master branch 로 push 해야만 실행하도록 구성할 수 있다.
+
+```yaml
+name: branch-filter
+on:
+  push:
+    branches: ["dev"]
+
+jobs:
+  branch-filter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: echo hello
+```
