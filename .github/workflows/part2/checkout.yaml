@@ -2,7 +2,7 @@ name: checkout
 on: workflow_dispatch
 
 jobs:
-  no-checkoit:
+  no-checkout:
     runs-on: ubuntu-latest
     steps:
       - name: check file list
