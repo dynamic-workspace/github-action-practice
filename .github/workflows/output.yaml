@@ -5,7 +5,7 @@ jobs:
   create_output:
     runs-on: ubuntu-latest
     outputs: # job level output
-      test: ${{ steps.check-output.outputs test }}
+      test: ${{ steps.check-output.outputs.test }}
     steps:
       - name: echo output
         id: check-output
