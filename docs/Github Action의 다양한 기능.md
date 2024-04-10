@@ -138,4 +138,5 @@ jobs:
 
 ![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/51e12713-9fc7-4e94-b7d4-a78ff0e8720e)
 
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/08623aa6-6557-4a99-8011-2ecbc2f89533)
 
