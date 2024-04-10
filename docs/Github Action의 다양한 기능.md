@@ -368,7 +368,31 @@ jobs:
 ![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/603625f4-ff84-4f5a-9557-8677bbbafc2d)
 
 ```yaml
+name: environment
+on: push
 
+jobs:
+  get-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check env & secret
+        run: |
+          echo ${{ vars.level }}
+          echo ${{ secrets.key }}
+          
+  get-env-dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: check env & secret
+        run: |
+          echo ${{ vars.level }}
+          echo ${{ secrets.key }}
 ```
 
+**environment 만들기**
+
+Settings -> Environments -> New environment
+
+![image](https://github.com/yoon-youngjin/spring-study/assets/83503188/3314f69b-3a4e-4fb6-bedb-9d0a2e8a6e88)
 
