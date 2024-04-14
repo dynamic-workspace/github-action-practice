@@ -9,7 +9,7 @@ on:
         type: choice
         options:
           - example
-          - servuce
+          - service
       name:
         description: 'set repo name'
         required: true
